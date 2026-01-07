@@ -114,10 +114,13 @@ class WorkoutTracker {
 
     setupEventListeners() {
         // Form submit
-        document.getElementById('workoutForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            this.addWorkout();
-        });
+        const workoutForm = document.getElementById('workoutForm');
+        if (workoutForm) {
+            workoutForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.addWorkout();
+            });
+        }
 
         // Filter buttons
         document.querySelectorAll('.btn-filter').forEach(btn => {
@@ -127,15 +130,21 @@ class WorkoutTracker {
         });
 
         // Kalori hesaplama ve egzersiz listesi - antrenman türü değiştiğinde
-        document.getElementById('workoutType').addEventListener('change', () => {
-            this.updateExerciseList();
-            this.updateCalorieSuggestion();
-        });
+        const workoutType = document.getElementById('workoutType');
+        if (workoutType) {
+            workoutType.addEventListener('change', () => {
+                this.updateExerciseList();
+                this.updateCalorieSuggestion();
+            });
+        }
 
         // Kalori hesaplama - süre değiştiğinde
-        document.getElementById('duration').addEventListener('input', () => {
-            this.updateCalorieSuggestion();
-        });
+        const duration = document.getElementById('duration');
+        if (duration) {
+            duration.addEventListener('input', () => {
+                this.updateCalorieSuggestion();
+            });
+        }
 
         // Beslenme tab'ları
         document.querySelectorAll('.nutrition-tab').forEach(tab => {
@@ -205,6 +214,11 @@ class WorkoutTracker {
         const exerciseSelect = document.getElementById('exercise');
         const weightGroup = document.getElementById('weightGroup');
 
+        if (!exerciseGroup || !exerciseSelect || !weightGroup) {
+            console.error('Form elementleri bulunamadı!');
+            return;
+        }
+
         if (workoutType && this.exercises[workoutType]) {
             // Egzersiz listesini temizle
             exerciseSelect.innerHTML = '<option value="">Seçiniz veya boş bırakın</option>';
@@ -220,10 +234,15 @@ class WorkoutTracker {
             // Egzersiz seçim alanını göster
             exerciseGroup.style.display = 'block';
             
-            // Ağırlık antrenmanı ise set ve kilo alanlarını göster
+            // Ağırlık antrenmanı ise set ve kilo alanlarını göster ve vurgula
             if (workoutType === 'Ağırlık') {
                 weightGroup.style.display = 'block';
+                weightGroup.style.border = '2px solid var(--primary-color)';
+                weightGroup.style.padding = '15px';
+                weightGroup.style.borderRadius = '10px';
+                weightGroup.style.backgroundColor = 'rgba(99, 102, 241, 0.1)';
             } else {
+                // Diğer antrenman türlerinde gizle
                 weightGroup.style.display = 'none';
             }
         } else {
@@ -259,18 +278,39 @@ class WorkoutTracker {
     }
 
     addWorkout() {
+        // Form değerlerini güvenli şekilde al
+        const workoutDate = document.getElementById('workoutDate');
+        const workoutType = document.getElementById('workoutType');
+        const exercise = document.getElementById('exercise');
+        const duration = document.getElementById('duration');
+        const distance = document.getElementById('distance');
+        const calories = document.getElementById('calories');
+        const sets = document.getElementById('sets');
+        const weight = document.getElementById('weight');
+        const notes = document.getElementById('notes');
+
+        if (!workoutDate || !workoutType || !duration) {
+            alert('Lütfen gerekli alanları doldurun!');
+            return;
+        }
+
         const workout = {
             id: Date.now(),
-            date: document.getElementById('workoutDate').value,
-            type: document.getElementById('workoutType').value,
-            exercise: document.getElementById('exercise').value || '',
-            duration: parseInt(document.getElementById('duration').value),
-            distance: parseFloat(document.getElementById('distance').value) || 0,
-            calories: parseInt(document.getElementById('calories').value) || 0,
-            sets: parseInt(document.getElementById('sets').value) || 0,
-            weight: parseFloat(document.getElementById('weight').value) || 0,
-            notes: document.getElementById('notes').value
+            date: workoutDate.value,
+            type: workoutType.value,
+            exercise: exercise ? exercise.value || '' : '',
+            duration: parseInt(duration.value) || 0,
+            distance: distance ? parseFloat(distance.value) || 0 : 0,
+            calories: calories ? parseInt(calories.value) || 0 : 0,
+            sets: sets ? parseInt(sets.value) || 0 : 0,
+            weight: weight ? parseFloat(weight.value) || 0 : 0,
+            notes: notes ? notes.value : ''
         };
+
+        if (workout.duration <= 0) {
+            alert('Lütfen geçerli bir süre girin!');
+            return;
+        }
 
         this.workouts.push(workout);
         this.saveWorkouts();
@@ -343,6 +383,19 @@ class WorkoutTracker {
         document.getElementById('avgDuration').textContent = 
             this.workouts.length > 0 ? Math.round(totalMinutes / this.workouts.length) : 0;
         document.getElementById('streak').textContent = this.calculateStreak();
+        
+        // Ağırlık istatistikleri (konsol için - isteğe bağlı UI'a eklenebilir)
+        const weightWorkouts = this.workouts.filter(w => w.sets > 0 && w.weight > 0);
+        if (weightWorkouts.length > 0) {
+            const totalSets = weightWorkouts.reduce((sum, w) => sum + w.sets, 0);
+            const totalVolume = weightWorkouts.reduce((sum, w) => sum + (w.sets * w.weight), 0);
+            const avgWeight = weightWorkouts.reduce((sum, w) => sum + w.weight, 0) / weightWorkouts.length;
+            console.log('💪 Ağırlık İstatistikleri:', {
+                toplamSet: totalSets,
+                toplamHacim: totalVolume.toFixed(0) + ' kg',
+                ortalamaAğırlık: avgWeight.toFixed(1) + ' kg'
+            });
+        }
     }
 
     calculateStreak() {
@@ -413,7 +466,7 @@ class WorkoutTracker {
                         <span>⏱️ ${workout.duration} dakika</span>
                         ${workout.distance > 0 ? `<span>📏 ${workout.distance} km</span>` : ''}
                         ${workout.calories > 0 ? `<span>🔥 ${workout.calories} kcal</span>` : ''}
-                        ${workout.sets > 0 && workout.weight > 0 ? `<span>🏋️ ${workout.sets} set x ${workout.weight} kg</span>` : ''}
+                        ${workout.sets > 0 && workout.weight > 0 ? `<span class="weight-info">🏋️ ${workout.sets} set x ${workout.weight} kg <span style="color: var(--primary-color); font-weight: 600;">(${(workout.sets * workout.weight).toFixed(0)} kg toplam)</span></span>` : ''}
                     </div>
                     ${workout.notes ? `<div class="workout-notes">"${workout.notes}"</div>` : ''}
                 </div>
@@ -547,7 +600,10 @@ class WorkoutTracker {
     }
 
     resetForm() {
-        document.getElementById('workoutForm').reset();
+        const form = document.getElementById('workoutForm');
+        if (form) {
+            form.reset();
+        }
         this.setDefaultDate();
         
         // Kalori önerisini temizle
@@ -563,10 +619,20 @@ class WorkoutTracker {
             exerciseGroup.style.display = 'none';
         }
         
-        // Ağırlık alanlarını gizle
+        // Ağırlık alanlarını gizle ve stilleri temizle
         const weightGroup = document.getElementById('weightGroup');
         if (weightGroup) {
             weightGroup.style.display = 'none';
+            weightGroup.style.border = '';
+            weightGroup.style.padding = '';
+            weightGroup.style.borderRadius = '';
+            weightGroup.style.backgroundColor = '';
+        }
+        
+        // Egzersiz select'i temizle
+        const exerciseSelect = document.getElementById('exercise');
+        if (exerciseSelect) {
+            exerciseSelect.innerHTML = '<option value="">Seçiniz veya boş bırakın</option>';
         }
     }
 
@@ -663,9 +729,9 @@ class WorkoutTracker {
                                 ${durationDiff !== 0 ? `<span class="diff ${durationDiff > 0 ? 'positive' : 'negative'}">${durationDiff > 0 ? '+' : ''}${durationDiff}</span>` : ''}
                             </div>
                         </div>
-                        ${type === 'Ağırlık' ? `
+                        ${(lastWeek.sets > 0 || previousWeek.sets > 0) ? `
                             <div class="comparison-stat">
-                                <div class="stat-label">Toplam Set</div>
+                                <div class="stat-label">🏋️ Toplam Set</div>
                                 <div class="stat-values">
                                     <span class="previous">${previousWeek.sets}</span>
                                     <span class="arrow">→</span>
@@ -674,21 +740,21 @@ class WorkoutTracker {
                                 </div>
                             </div>
                             <div class="comparison-stat">
-                                <div class="stat-label">Ortalama Ağırlık (kg)</div>
+                                <div class="stat-label">⚖️ Ortalama Ağırlık (kg)</div>
                                 <div class="stat-values">
-                                    <span class="previous">${previousWeek.avgWeight.toFixed(1)}</span>
+                                    <span class="previous">${previousWeek.avgWeight > 0 ? previousWeek.avgWeight.toFixed(1) : '0'}</span>
                                     <span class="arrow">→</span>
-                                    <span class="current">${lastWeek.avgWeight.toFixed(1)}</span>
+                                    <span class="current">${lastWeek.avgWeight > 0 ? lastWeek.avgWeight.toFixed(1) : '0'}</span>
                                     ${weightDiff !== 0 ? `<span class="diff ${weightDiff > 0 ? 'positive' : 'negative'}">${weightDiff > 0 ? '+' : ''}${weightDiff.toFixed(1)}</span>` : ''}
                                 </div>
                             </div>
                             <div class="comparison-stat">
-                                <div class="stat-label">Toplam Hacim (set x kg)</div>
+                                <div class="stat-label">💪 Toplam Hacim (set x kg)</div>
                                 <div class="stat-values">
-                                    <span class="previous">${previousWeek.totalVolume.toFixed(1)}</span>
+                                    <span class="previous">${previousWeek.totalVolume > 0 ? previousWeek.totalVolume.toFixed(0) : '0'}</span>
                                     <span class="arrow">→</span>
-                                    <span class="current">${lastWeek.totalVolume.toFixed(1)}</span>
-                                    ${totalVolumeDiff !== 0 ? `<span class="diff ${totalVolumeDiff > 0 ? 'positive' : 'negative'}">${totalVolumeDiff > 0 ? '+' : ''}${totalVolumeDiff.toFixed(1)}</span>` : ''}
+                                    <span class="current">${lastWeek.totalVolume > 0 ? lastWeek.totalVolume.toFixed(0) : '0'}</span>
+                                    ${totalVolumeDiff !== 0 ? `<span class="diff ${totalVolumeDiff > 0 ? 'positive' : 'negative'}">${totalVolumeDiff > 0 ? '+' : ''}${totalVolumeDiff.toFixed(0)}</span>` : ''}
                                 </div>
                             </div>
                         ` : ''}
@@ -733,7 +799,8 @@ class WorkoutTracker {
                     calories: 0,
                     sets: 0,
                     totalWeight: 0,
-                    weightCount: 0
+                    weightCount: 0,
+                    totalVolume: 0
                 };
             }
             
@@ -747,14 +814,17 @@ class WorkoutTracker {
                 stats.sets += workout.sets || 0;
                 stats.totalWeight += workout.weight || 0;
                 stats.weightCount++;
+                // Her antrenman için hacim ekle (set x ağırlık)
+                stats.totalVolume += workout.sets * workout.weight;
             }
         });
 
-        // Ortalama ağırlık ve toplam hacim hesapla
+        // Ortalama ağırlık hesapla
         Object.keys(grouped).forEach(type => {
             const stats = grouped[type];
             stats.avgWeight = stats.weightCount > 0 ? stats.totalWeight / stats.weightCount : 0;
-            stats.totalVolume = stats.sets * stats.avgWeight;
+            // totalVolume zaten yukarıda hesaplandı
+            if (!stats.totalVolume) stats.totalVolume = 0;
         });
 
         return grouped;
@@ -768,7 +838,9 @@ class WorkoutTracker {
             calories: 0,
             sets: 0,
             avgWeight: 0,
-            totalVolume: 0
+            totalVolume: 0,
+            totalWeight: 0,
+            weightCount: 0
         };
     }
 
@@ -840,8 +912,4 @@ document.head.appendChild(style);
 
 // Uygulamayı başlat
 const tracker = new WorkoutTracker();
-
-
-
-
 
