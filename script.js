@@ -1,992 +1,847 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-:root {
-    --primary-color: #6366f1;
-    --primary-dark: #4f46e5;
-    --secondary-color: #8b5cf6;
-    --success-color: #10b981;
-    --danger-color: #ef4444;
-    --warning-color: #f59e0b;
-    --bg-primary: #0f172a;
-    --bg-secondary: #1e293b;
-    --bg-tertiary: #334155;
-    --text-primary: #f1f5f9;
-    --text-secondary: #cbd5e1;
-    --text-muted: #94a3b8;
-    --border-color: #334155;
-    --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-    color: var(--text-primary);
-    line-height: 1.6;
-    min-height: 100vh;
-    padding: 20px;
-}
-
-.container {
-    max-width: 1400px;
-    margin: 0 auto;
-}
-
-header {
-    text-align: center;
-    margin-bottom: 40px;
-    padding: 30px;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    border-radius: 20px;
-    box-shadow: var(--shadow);
-}
-
-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.subtitle {
-    font-size: 1.1rem;
-    color: var(--text-primary);
-    opacity: 0.9;
-}
-
-.main-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 25px;
-    margin-bottom: 25px;
-}
-
-.card {
-    background: var(--bg-secondary);
-    border-radius: 15px;
-    padding: 30px;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--border-color);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-}
-
-.card h2 {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    color: var(--text-primary);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.card h3 {
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-    color: var(--text-secondary);
-}
-
-/* Form Styles */
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    color: var(--text-secondary);
-    font-weight: 500;
-    font-size: 0.95rem;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-    width: 100%;
-    padding: 12px 15px;
-    background: var(--bg-tertiary);
-    border: 2px solid var(--border-color);
-    border-radius: 10px;
-    color: var(--text-primary);
-    font-size: 1rem;
-    transition: all 0.3s ease;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-}
-
-.form-group textarea {
-    resize: vertical;
-    font-family: inherit;
-}
-
-/* Button Styles */
-.btn {
-    padding: 12px 24px;
-    border: none;
-    border-radius: 10px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: inline-block;
-    text-align: center;
-}
-
-.btn-primary {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    color: white;
-    width: 100%;
-    padding: 15px;
-    font-size: 1.1rem;
-    box-shadow: var(--shadow-sm);
-}
-
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 20px rgba(99, 102, 241, 0.4);
-}
-
-.btn-primary:active {
-    transform: translateY(0);
-}
-
-/* Stats Panel */
-.stats-panel {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-}
-
-.stats-card {
-    padding: 25px;
-}
-
-.stat-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-}
-
-.stat-item {
-    text-align: center;
-    padding: 20px;
-    background: var(--bg-tertiary);
-    border-radius: 12px;
-    transition: all 0.3s ease;
-}
-
-.stat-item:hover {
-    background: var(--bg-primary);
-    transform: scale(1.05);
-}
-
-.stat-value {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--primary-color);
-    margin-bottom: 5px;
-}
-
-.stat-label {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-/* Chart Container */
-.chart-container {
-    margin-bottom: 25px;
-    padding: 30px;
-}
-
-#progressChart {
-    max-height: 300px;
-}
-
-/* History Section */
-.history-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-.filter-buttons {
-    display: flex;
-    gap: 10px;
-}
-
-.btn-filter {
-    padding: 8px 16px;
-    background: var(--bg-tertiary);
-    color: var(--text-secondary);
-    border: 2px solid var(--border-color);
-    border-radius: 8px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn-filter:hover {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-}
-
-.btn-filter.active {
-    background: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
-}
-
-/* Workout List */
-.workout-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.empty-state {
-    text-align: center;
-    padding: 40px;
-    color: var(--text-muted);
-    font-style: italic;
-}
-
-.workout-item {
-    background: var(--bg-tertiary);
-    padding: 20px;
-    border-radius: 12px;
-    border-left: 4px solid var(--primary-color);
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 20px;
-    align-items: center;
-    transition: all 0.3s ease;
-}
-
-.workout-item:hover {
-    background: var(--bg-primary);
-    transform: translateX(5px);
-}
-
-.workout-icon {
-    font-size: 2rem;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--bg-secondary);
-    border-radius: 12px;
-}
-
-.workout-details {
-    flex: 1;
-}
-
-.workout-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-}
-
-.workout-type {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--text-primary);
-}
-
-.workout-exercise {
-    display: inline-block;
-    margin-left: 8px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--primary-color);
-    background: rgba(99, 102, 241, 0.1);
-    padding: 3px 10px;
-    border-radius: 6px;
-    border: 1px solid rgba(99, 102, 241, 0.3);
-}
-
-.workout-date {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-}
-
-.workout-info {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-}
-
-.workout-info span {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.workout-notes {
-    margin-top: 8px;
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    font-style: italic;
-}
-
-.workout-actions {
-    display: flex;
-    gap: 10px;
-}
-
-.btn-delete {
-    background: var(--danger-color);
-    color: white;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-}
-
-.btn-delete:hover {
-    background: #dc2626;
-    transform: scale(1.05);
-}
-
-/* Responsive Design */
-@media (max-width: 1024px) {
-    .main-content {
-        grid-template-columns: 1fr;
+// Veri Yönetimi
+class WorkoutTracker {
+    constructor() {
+        this.workouts = this.loadWorkouts();
+        this.chart = null;
+        this.currentFilter = 'all';
+        
+        // Kalori yakma oranları (70 kg kişi için kcal/saat)
+        this.calorieRates = {
+            'Koşu': 650,
+            'Bisiklet': 450,
+            'Yüzme': 550,
+            'Ağırlık': 350,
+            'Yoga': 225,
+            'Kardiyo': 550,
+            'Diğer': 300
+        };
+        
+        // Antrenman türlerine göre egzersiz listeleri
+        this.exercises = {
+            'Koşu': [
+                'Tempolu Koşu',
+                'Sprint',
+                'İnterval Koşu',
+                'Uzun Mesafe',
+                'Tepelik Koşu',
+                'Treadmill',
+                'Parkur Koşusu'
+            ],
+            'Bisiklet': [
+                'Yol Bisikleti',
+                'Dağ Bisikleti',
+                'Spin/Sabit Bisiklet',
+                'İnterval Bisiklet',
+                'Uzun Tur',
+                'Tepelik Bisiklet'
+            ],
+            'Yüzme': [
+                'Serbest Stil',
+                'Kurbağalama',
+                'Kelebek',
+                'Sırtüstü',
+                'İnterval Yüzme',
+                'Açık Su Yüzme'
+            ],
+            'Ağırlık': [
+                'Bench Press',
+                'Squat',
+                'Deadlift',
+                'Shoulder Press',
+                'Barbell Row',
+                'Pull-up/Chin-up',
+                'Dips',
+                'Lunges',
+                'Biceps Curl',
+                'Triceps Extension',
+                'Leg Press',
+                'Lat Pulldown',
+                'Cable Exercises',
+                'Full Body Workout'
+            ],
+            'Yoga': [
+                'Hatha Yoga',
+                'Vinyasa Yoga',
+                'Ashtanga Yoga',
+                'Bikram/Hot Yoga',
+                'Yin Yoga',
+                'Power Yoga',
+                'Restorative Yoga',
+                'Meditation'
+            ],
+            'Kardiyo': [
+                'HIIT',
+                'Burpees',
+                'Jumping Jacks',
+                'Mountain Climbers',
+                'Box Jumps',
+                'Zumba',
+                'Aerobik',
+                'Step Aerobik',
+                'Kickboks',
+                'Jump Rope (İp Atlama)'
+            ],
+            'Diğer': [
+                'Pilates',
+                'CrossFit',
+                'Fonksiyonel Antrenman',
+                'Germe/Esneklik',
+                'Dans',
+                'Basketbol',
+                'Futbol',
+                'Tenis',
+                'Voleybol'
+            ]
+        };
+        
+        this.init();
     }
 
-    .stat-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    header h1 {
-        font-size: 2rem;
-    }
-
-    .card {
-        padding: 20px;
+    init() {
+        this.setupEventListeners();
+        this.updateStats();
+        this.renderWorkoutHistory();
+        this.setupChart();
+        this.updateComparison();
+        this.setDefaultDate();
     }
 
-    .history-header {
-        flex-direction: column;
-        align-items: flex-start;
+    setDefaultDate() {
+        const dateInput = document.getElementById('workoutDate');
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.value = today;
     }
 
-    .workout-item {
-        grid-template-columns: auto 1fr;
-        gap: 15px;
+    setupEventListeners() {
+        // Form submit
+        document.getElementById('workoutForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.addWorkout();
+        });
+
+        // Filter buttons
+        document.querySelectorAll('.btn-filter').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                this.setFilter(e.target.dataset.filter);
+            });
+        });
+
+        // Kalori hesaplama ve egzersiz listesi - antrenman türü değiştiğinde
+        document.getElementById('workoutType').addEventListener('change', () => {
+            this.updateExerciseList();
+            this.updateCalorieSuggestion();
+        });
+
+        // Kalori hesaplama - süre değiştiğinde
+        document.getElementById('duration').addEventListener('input', () => {
+            this.updateCalorieSuggestion();
+        });
+
+        // Beslenme tab'ları
+        document.querySelectorAll('.nutrition-tab').forEach(tab => {
+            tab.addEventListener('click', (e) => {
+                this.switchNutritionTab(e.target.dataset.tab);
+            });
+        });
+
+        // Beslenme program filtreleri
+        document.querySelectorAll('.program-filter').forEach(filter => {
+            filter.addEventListener('click', (e) => {
+                this.filterPrograms(e.target.dataset.goal);
+            });
+        });
     }
 
-    .workout-actions {
-        grid-column: 1 / -1;
-        justify-content: flex-end;
+    switchNutritionTab(tabName) {
+        // Tüm tab'ları deaktif et
+        document.querySelectorAll('.nutrition-tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+
+        // Tüm içerikleri gizle
+        document.querySelectorAll('.nutrition-content').forEach(content => {
+            content.classList.remove('active');
+        });
+
+        // Seçilen tab'ı aktif et
+        const activeTab = document.querySelector(`[data-tab="${tabName}"]`);
+        if (activeTab) {
+            activeTab.classList.add('active');
+        }
+
+        // Seçilen içeriği göster
+        const activeContent = document.getElementById(`${tabName}-tab`);
+        if (activeContent) {
+            activeContent.classList.add('active');
+        }
     }
 
-    .stat-grid {
-        grid-template-columns: 1fr;
+    filterPrograms(goal) {
+        // Tüm filtre butonlarını deaktif et
+        document.querySelectorAll('.program-filter').forEach(btn => {
+            btn.classList.remove('active');
+        });
+
+        // Seçilen filtreyi aktif et
+        const activeFilter = document.querySelector(`[data-goal="${goal}"]`);
+        if (activeFilter) {
+            activeFilter.classList.add('active');
+        }
+
+        // Program kartlarını filtrele
+        const programCards = document.querySelectorAll('.program-card');
+        programCards.forEach(card => {
+            if (goal === 'all' || card.dataset.goal === goal) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
     }
 
-    .calorie-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
+    updateExerciseList() {
+        const workoutType = document.getElementById('workoutType').value;
+        const exerciseGroup = document.getElementById('exerciseGroup');
+        const exerciseSelect = document.getElementById('exercise');
+        const weightGroup = document.getElementById('weightGroup');
 
-@media (max-width: 480px) {
-    body {
-        padding: 10px;
-    }
-
-    header {
-        padding: 20px;
-    }
-
-    header h1 {
-        font-size: 1.5rem;
-    }
-
-    .subtitle {
-        font-size: 0.9rem;
-    }
-
-    .filter-buttons {
-        width: 100%;
-    }
-
-    .btn-filter {
-        flex: 1;
-        font-size: 0.8rem;
-    }
-
-    .calorie-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* Calorie Reference */
-.calorie-reference {
-    margin-bottom: 25px;
-}
-
-.calorie-subtitle {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.calorie-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.calorie-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 15px;
-    background: var(--bg-tertiary);
-    border-radius: 12px;
-    transition: all 0.3s ease;
-    border-left: 3px solid var(--warning-color);
-}
-
-.calorie-item:hover {
-    background: var(--bg-primary);
-    transform: translateX(5px);
-    border-left-color: var(--danger-color);
-}
-
-.calorie-icon {
-    font-size: 2rem;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--bg-secondary);
-    border-radius: 10px;
-}
-
-.calorie-info {
-    flex: 1;
-}
-
-.calorie-type {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 4px;
-}
-
-.calorie-value {
-    font-size: 0.85rem;
-    color: var(--warning-color);
-    font-weight: 500;
-}
-
-.calorie-note {
-    text-align: center;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    padding: 12px;
-    background: var(--bg-tertiary);
-    border-radius: 8px;
-    border-left: 3px solid var(--primary-color);
-}
-
-.calorie-suggestion {
-    display: block;
-    margin-top: 8px;
-    font-size: 0.85rem;
-    color: var(--warning-color);
-    font-weight: 500;
-    font-style: italic;
-}
-
-/* Success Animation */
-@keyframes successPulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.05);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-.success-animation {
-    animation: successPulse 0.3s ease;
-}
-
-/* Nutrition Section */
-.nutrition-section {
-    margin-bottom: 25px;
-}
-
-.nutrition-subtitle {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    margin-bottom: 25px;
-    text-align: center;
-}
-
-.nutrition-tabs {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 30px;
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 10px;
-}
-
-.nutrition-tab {
-    padding: 12px 24px;
-    background: transparent;
-    border: none;
-    color: var(--text-secondary);
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    border-bottom: 3px solid transparent;
-    transition: all 0.3s ease;
-    margin-bottom: -12px;
-}
-
-.nutrition-tab:hover {
-    color: var(--text-primary);
-}
-
-.nutrition-tab.active {
-    color: var(--primary-color);
-    border-bottom-color: var(--primary-color);
-}
-
-.nutrition-content {
-    display: none;
-}
-
-.nutrition-content.active {
-    display: block;
-}
-
-/* Food Categories */
-.food-categories {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-}
-
-.food-category h3 {
-    font-size: 1.3rem;
-    margin-bottom: 20px;
-    color: var(--text-primary);
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--border-color);
-}
-
-.food-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 15px;
-}
-
-.food-item {
-    background: var(--bg-tertiary);
-    padding: 15px;
-    border-radius: 12px;
-    border-left: 3px solid var(--success-color);
-    transition: all 0.3s ease;
-}
-
-.food-item:hover {
-    background: var(--bg-primary);
-    transform: translateX(5px);
-    border-left-color: var(--primary-color);
-}
-
-.food-name {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 8px;
-}
-
-.food-calories {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--warning-color);
-    margin-bottom: 5px;
-}
-
-.food-macros {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    font-style: italic;
-}
-
-/* Program Filters */
-.program-filters {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
-}
-
-.program-filter {
-    padding: 10px 20px;
-    background: var(--bg-tertiary);
-    border: 2px solid var(--border-color);
-    color: var(--text-secondary);
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.program-filter:hover {
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    border-color: var(--primary-color);
-}
-
-.program-filter.active {
-    background: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
-}
-
-/* Programs Grid */
-.programs-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    gap: 25px;
-}
-
-.program-card {
-    background: var(--bg-tertiary);
-    border-radius: 15px;
-    padding: 25px;
-    border: 2px solid var(--border-color);
-    transition: all 0.3s ease;
-    display: none;
-}
-
-.program-card.active {
-    display: block;
-}
-
-.program-card[data-goal] {
-    display: block;
-}
-
-.program-card:hover {
-    border-color: var(--primary-color);
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
-}
-
-.program-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-    padding-bottom: 15px;
-    border-bottom: 2px solid var(--border-color);
-}
-
-.program-header h3 {
-    font-size: 1.3rem;
-    color: var(--text-primary);
-    margin: 0;
-}
-
-.program-badge {
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.program-badge.bulk {
-    background: var(--warning-color);
-    color: var(--bg-primary);
-}
-
-.program-badge.cut {
-    background: var(--danger-color);
-    color: white;
-}
-
-.program-badge.maintain {
-    background: var(--success-color);
-    color: white;
-}
-
-.program-badge.endurance {
-    background: var(--primary-color);
-    color: white;
-}
-
-.program-info {
-    margin-bottom: 20px;
-    padding: 15px;
-    background: var(--bg-secondary);
-    border-radius: 10px;
-    border-left: 3px solid var(--primary-color);
-}
-
-.program-info p {
-    margin: 5px 0;
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-}
-
-.program-info strong {
-    color: var(--text-primary);
-}
-
-.program-meals {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.meal {
-    background: var(--bg-secondary);
-    padding: 15px;
-    border-radius: 10px;
-    border-left: 3px solid var(--secondary-color);
-}
-
-.meal strong {
-    display: block;
-    color: var(--text-primary);
-    font-size: 1rem;
-    margin-bottom: 10px;
-}
-
-.meal ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.meal li {
-    padding: 5px 0;
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-    padding-left: 20px;
-    position: relative;
-}
-
-.meal li:before {
-    content: "•";
-    position: absolute;
-    left: 0;
-    color: var(--primary-color);
-    font-weight: bold;
-}
-
-.meal li em {
-    display: block;
-    margin-top: 5px;
-    color: var(--warning-color);
-    font-style: normal;
-    font-weight: 600;
-    font-size: 0.85rem;
-}
-
-/* Responsive Design for Nutrition */
-@media (max-width: 1024px) {
-    .programs-grid {
-        grid-template-columns: 1fr;
+        if (workoutType && this.exercises[workoutType]) {
+            // Egzersiz listesini temizle
+            exerciseSelect.innerHTML = '<option value="">Seçiniz veya boş bırakın</option>';
+            
+            // Seçilen türe göre egzersizleri ekle
+            this.exercises[workoutType].forEach(exercise => {
+                const option = document.createElement('option');
+                option.value = exercise;
+                option.textContent = exercise;
+                exerciseSelect.appendChild(option);
+            });
+            
+            // Egzersiz seçim alanını göster
+            exerciseGroup.style.display = 'block';
+            
+            // Ağırlık antrenmanı ise set ve kilo alanlarını göster
+            if (workoutType === 'Ağırlık') {
+                weightGroup.style.display = 'block';
+            } else {
+                weightGroup.style.display = 'none';
+            }
+        } else {
+            // Antrenman türü seçilmemişse gizle
+            exerciseGroup.style.display = 'none';
+            weightGroup.style.display = 'none';
+            exerciseSelect.innerHTML = '<option value="">Seçiniz veya boş bırakın</option>';
+        }
     }
 
-    .food-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    updateCalorieSuggestion() {
+        const workoutType = document.getElementById('workoutType').value;
+        const duration = parseInt(document.getElementById('duration').value);
+        const caloriesInput = document.getElementById('calories');
+        const suggestionElement = document.getElementById('calorieSuggestion');
+
+        if (workoutType && duration > 0) {
+            const calorieRate = this.calorieRates[workoutType] || 300;
+            const suggestedCalories = Math.round((calorieRate * duration) / 60);
+            
+            // Kalori alanı boşsa otomatik doldur
+            if (!caloriesInput.value) {
+                caloriesInput.value = suggestedCalories;
+            }
+            
+            // Öneri mesajını göster
+            suggestionElement.textContent = `💡 Önerilen: ${suggestedCalories} kcal (${calorieRate} kcal/saat)`;
+            suggestionElement.style.display = 'block';
+        } else {
+            suggestionElement.textContent = '';
+            suggestionElement.style.display = 'none';
+        }
+    }
+
+    addWorkout() {
+        const workout = {
+            id: Date.now(),
+            date: document.getElementById('workoutDate').value,
+            type: document.getElementById('workoutType').value,
+            exercise: document.getElementById('exercise').value || '',
+            duration: parseInt(document.getElementById('duration').value),
+            distance: parseFloat(document.getElementById('distance').value) || 0,
+            calories: parseInt(document.getElementById('calories').value) || 0,
+            sets: parseInt(document.getElementById('sets').value) || 0,
+            weight: parseFloat(document.getElementById('weight').value) || 0,
+            notes: document.getElementById('notes').value
+        };
+
+        this.workouts.push(workout);
+        this.saveWorkouts();
+        this.updateStats();
+        this.renderWorkoutHistory();
+        this.updateChart();
+        this.updateComparison();
+        this.resetForm();
+        this.showSuccessMessage();
+    }
+
+    deleteWorkout(id) {
+        if (confirm('Bu antrenmanı silmek istediğinizden emin misiniz?')) {
+            this.workouts = this.workouts.filter(w => w.id !== id);
+            this.saveWorkouts();
+            this.updateStats();
+            this.renderWorkoutHistory();
+            this.updateChart();
+        }
+    }
+
+    setFilter(filter) {
+        this.currentFilter = filter;
+        
+        // Update active button
+        document.querySelectorAll('.btn-filter').forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.dataset.filter === filter) {
+                btn.classList.add('active');
+            }
+        });
+
+        this.renderWorkoutHistory();
+    }
+
+    getFilteredWorkouts() {
+        const now = new Date();
+        const workouts = [...this.workouts].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        switch (this.currentFilter) {
+            case 'week':
+                const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+                return workouts.filter(w => new Date(w.date) >= weekAgo);
+            case 'month':
+                const monthAgo = new Date(now.getFullYear(), now.getMonth(), 1);
+                return workouts.filter(w => new Date(w.date) >= monthAgo);
+            default:
+                return workouts;
+        }
+    }
+
+    updateStats() {
+        const now = new Date();
+        const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+        
+        // Bu ay istatistikleri
+        const monthWorkouts = this.workouts.filter(w => new Date(w.date) >= monthStart);
+        document.getElementById('monthWorkouts').textContent = monthWorkouts.length;
+        document.getElementById('monthDuration').textContent = 
+            monthWorkouts.reduce((sum, w) => sum + w.duration, 0);
+        document.getElementById('monthDistance').textContent = 
+            monthWorkouts.reduce((sum, w) => sum + w.distance, 0).toFixed(1);
+        document.getElementById('monthCalories').textContent = 
+            monthWorkouts.reduce((sum, w) => sum + w.calories, 0);
+
+        // Toplam istatistikler
+        document.getElementById('totalWorkouts').textContent = this.workouts.length;
+        const totalMinutes = this.workouts.reduce((sum, w) => sum + w.duration, 0);
+        document.getElementById('totalHours').textContent = (totalMinutes / 60).toFixed(1);
+        document.getElementById('avgDuration').textContent = 
+            this.workouts.length > 0 ? Math.round(totalMinutes / this.workouts.length) : 0;
+        document.getElementById('streak').textContent = this.calculateStreak();
+    }
+
+    calculateStreak() {
+        if (this.workouts.length === 0) return 0;
+
+        const sortedDates = [...new Set(this.workouts.map(w => w.date))].sort().reverse();
+        let streak = 0;
+        let currentDate = new Date();
+        currentDate.setHours(0, 0, 0, 0);
+
+        for (const dateStr of sortedDates) {
+            const workoutDate = new Date(dateStr);
+            workoutDate.setHours(0, 0, 0, 0);
+            
+            const diffDays = Math.floor((currentDate - workoutDate) / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === streak || (streak === 0 && diffDays <= 1)) {
+                streak++;
+                currentDate = workoutDate;
+            } else {
+                break;
+            }
+        }
+
+        return streak;
+    }
+
+    renderWorkoutHistory() {
+        const container = document.getElementById('workoutHistory');
+        const workouts = this.getFilteredWorkouts();
+
+        if (workouts.length === 0) {
+            container.innerHTML = '<p class="empty-state">Bu filtre için antrenman kaydı bulunamadı.</p>';
+            return;
+        }
+
+        container.innerHTML = workouts.map(workout => this.createWorkoutHTML(workout)).join('');
+
+        // Add delete event listeners
+        container.querySelectorAll('.btn-delete').forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.deleteWorkout(parseInt(btn.dataset.id));
+            });
+        });
+    }
+
+    createWorkoutHTML(workout) {
+        const date = new Date(workout.date).toLocaleDateString('tr-TR', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        });
+
+        const icon = this.getWorkoutIcon(workout.type);
+
+        return `
+            <div class="workout-item">
+                <div class="workout-icon">${icon}</div>
+                <div class="workout-details">
+                    <div class="workout-header">
+                        <div>
+                            <span class="workout-type">${workout.type}</span>
+                            ${workout.exercise ? `<span class="workout-exercise">→ ${workout.exercise}</span>` : ''}
+                        </div>
+                        <span class="workout-date">${date}</span>
+                    </div>
+                    <div class="workout-info">
+                        <span>⏱️ ${workout.duration} dakika</span>
+                        ${workout.distance > 0 ? `<span>📏 ${workout.distance} km</span>` : ''}
+                        ${workout.calories > 0 ? `<span>🔥 ${workout.calories} kcal</span>` : ''}
+                        ${workout.sets > 0 && workout.weight > 0 ? `<span>🏋️ ${workout.sets} set x ${workout.weight} kg</span>` : ''}
+                    </div>
+                    ${workout.notes ? `<div class="workout-notes">"${workout.notes}"</div>` : ''}
+                </div>
+                <div class="workout-actions">
+                    <button class="btn-delete" data-id="${workout.id}">🗑️ Sil</button>
+                </div>
+            </div>
+        `;
+    }
+
+    getWorkoutIcon(type) {
+        const icons = {
+            'Koşu': '🏃',
+            'Bisiklet': '🚴',
+            'Yüzme': '🏊',
+            'Ağırlık': '🏋️',
+            'Yoga': '🧘',
+            'Kardiyo': '💪',
+            'Diğer': '🎯'
+        };
+        return icons[type] || '🎯';
+    }
+
+    setupChart() {
+        const ctx = document.getElementById('progressChart').getContext('2d');
+        
+        const data = this.getWeeklyData();
+        
+        this.chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: data.labels,
+                datasets: [
+                    {
+                        label: 'Süre (dakika)',
+                        data: data.durations,
+                        backgroundColor: 'rgba(99, 102, 241, 0.8)',
+                        borderColor: 'rgba(99, 102, 241, 1)',
+                        borderWidth: 2,
+                        borderRadius: 8
+                    },
+                    {
+                        label: 'Mesafe (km)',
+                        data: data.distances,
+                        backgroundColor: 'rgba(139, 92, 246, 0.8)',
+                        borderColor: 'rgba(139, 92, 246, 1)',
+                        borderWidth: 2,
+                        borderRadius: 8
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#cbd5e1',
+                            font: {
+                                size: 12
+                            }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: '#1e293b',
+                        titleColor: '#f1f5f9',
+                        bodyColor: '#cbd5e1',
+                        borderColor: '#334155',
+                        borderWidth: 1,
+                        padding: 12,
+                        cornerRadius: 8
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(51, 65, 85, 0.5)'
+                        },
+                        ticks: {
+                            color: '#94a3b8'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: 'rgba(51, 65, 85, 0.5)'
+                        },
+                        ticks: {
+                            color: '#94a3b8'
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    getWeeklyData() {
+        const labels = [];
+        const durations = [];
+        const distances = [];
+        
+        const now = new Date();
+        const days = ['Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt'];
+        
+        for (let i = 6; i >= 0; i--) {
+            const date = new Date(now);
+            date.setDate(date.getDate() - i);
+            date.setHours(0, 0, 0, 0);
+            
+            const dateStr = date.toISOString().split('T')[0];
+            const dayName = days[date.getDay()];
+            
+            labels.push(dayName);
+            
+            const dayWorkouts = this.workouts.filter(w => w.date === dateStr);
+            durations.push(dayWorkouts.reduce((sum, w) => sum + w.duration, 0));
+            distances.push(dayWorkouts.reduce((sum, w) => sum + w.distance, 0));
+        }
+        
+        return { labels, durations, distances };
+    }
+
+    updateChart() {
+        if (!this.chart) return;
+        
+        const data = this.getWeeklyData();
+        this.chart.data.labels = data.labels;
+        this.chart.data.datasets[0].data = data.durations;
+        this.chart.data.datasets[1].data = data.distances;
+        this.chart.update();
+    }
+
+    resetForm() {
+        document.getElementById('workoutForm').reset();
+        this.setDefaultDate();
+        
+        // Kalori önerisini temizle
+        const suggestionElement = document.getElementById('calorieSuggestion');
+        if (suggestionElement) {
+            suggestionElement.textContent = '';
+            suggestionElement.style.display = 'none';
+        }
+        
+        // Egzersiz seçim alanını gizle
+        const exerciseGroup = document.getElementById('exerciseGroup');
+        if (exerciseGroup) {
+            exerciseGroup.style.display = 'none';
+        }
+        
+        // Ağırlık alanlarını gizle
+        const weightGroup = document.getElementById('weightGroup');
+        if (weightGroup) {
+            weightGroup.style.display = 'none';
+        }
+    }
+
+    updateComparison() {
+        const container = document.getElementById('comparisonContent');
+        if (!container) return;
+
+        const now = new Date();
+        const lastWeekStart = new Date(now);
+        lastWeekStart.setDate(now.getDate() - 7);
+        lastWeekStart.setHours(0, 0, 0, 0);
+        
+        const lastWeekEnd = new Date(now);
+        lastWeekEnd.setHours(23, 59, 59, 999);
+        
+        const previousWeekStart = new Date(lastWeekStart);
+        previousWeekStart.setDate(previousWeekStart.getDate() - 7);
+        
+        const previousWeekEnd = new Date(lastWeekStart);
+        previousWeekEnd.setDate(previousWeekEnd.getDate() - 1);
+        previousWeekEnd.setHours(23, 59, 59, 999);
+
+        // Geçen hafta verileri
+        const lastWeekWorkouts = this.workouts.filter(w => {
+            const workoutDate = new Date(w.date);
+            return workoutDate >= lastWeekStart && workoutDate <= lastWeekEnd;
+        });
+
+        // Önceki hafta verileri
+        const previousWeekWorkouts = this.workouts.filter(w => {
+            const workoutDate = new Date(w.date);
+            return workoutDate >= previousWeekStart && workoutDate <= previousWeekEnd;
+        });
+
+        if (lastWeekWorkouts.length === 0 && previousWeekWorkouts.length === 0) {
+            container.innerHTML = '<p class="empty-state">Karşılaştırma için yeterli veri yok. En az 2 haftalık veri gerekli.</p>';
+            return;
+        }
+
+        // Antrenman türlerine göre grupla
+        const lastWeekByType = this.groupByType(lastWeekWorkouts);
+        const previousWeekByType = this.groupByType(previousWeekWorkouts);
+
+        // Tüm antrenman türlerini birleştir
+        const allTypes = new Set([
+            ...Object.keys(lastWeekByType),
+            ...Object.keys(previousWeekByType)
+        ]);
+
+        if (allTypes.size === 0) {
+            container.innerHTML = '<p class="empty-state">Karşılaştırma için yeterli veri yok.</p>';
+            return;
+        }
+
+        let html = '<div class="comparison-grid">';
+        
+        allTypes.forEach(type => {
+            const lastWeek = lastWeekByType[type] || this.getEmptyStats();
+            const previousWeek = previousWeekByType[type] || this.getEmptyStats();
+            
+            const durationDiff = lastWeek.duration - previousWeek.duration;
+            const distanceDiff = lastWeek.distance - previousWeek.distance;
+            const caloriesDiff = lastWeek.calories - previousWeek.calories;
+            const countDiff = lastWeek.count - previousWeek.count;
+            
+            // Ağırlık antrenmanı için set ve kilo karşılaştırması
+            const setsDiff = lastWeek.sets - previousWeek.sets;
+            const weightDiff = lastWeek.avgWeight - previousWeek.avgWeight;
+            const totalVolumeDiff = lastWeek.totalVolume - previousWeek.totalVolume;
+
+            const icon = this.getWorkoutIcon(type);
+            
+            html += `
+                <div class="comparison-card">
+                    <div class="comparison-header">
+                        <h3>${icon} ${type}</h3>
+                    </div>
+                    <div class="comparison-stats">
+                        <div class="comparison-stat">
+                            <div class="stat-label">Antrenman Sayısı</div>
+                            <div class="stat-values">
+                                <span class="previous">${previousWeek.count}</span>
+                                <span class="arrow">→</span>
+                                <span class="current">${lastWeek.count}</span>
+                                ${countDiff !== 0 ? `<span class="diff ${countDiff > 0 ? 'positive' : 'negative'}">${countDiff > 0 ? '+' : ''}${countDiff}</span>` : ''}
+                            </div>
+                        </div>
+                        <div class="comparison-stat">
+                            <div class="stat-label">Toplam Süre (dk)</div>
+                            <div class="stat-values">
+                                <span class="previous">${previousWeek.duration}</span>
+                                <span class="arrow">→</span>
+                                <span class="current">${lastWeek.duration}</span>
+                                ${durationDiff !== 0 ? `<span class="diff ${durationDiff > 0 ? 'positive' : 'negative'}">${durationDiff > 0 ? '+' : ''}${durationDiff}</span>` : ''}
+                            </div>
+                        </div>
+                        ${type === 'Ağırlık' ? `
+                            <div class="comparison-stat">
+                                <div class="stat-label">Toplam Set</div>
+                                <div class="stat-values">
+                                    <span class="previous">${previousWeek.sets}</span>
+                                    <span class="arrow">→</span>
+                                    <span class="current">${lastWeek.sets}</span>
+                                    ${setsDiff !== 0 ? `<span class="diff ${setsDiff > 0 ? 'positive' : 'negative'}">${setsDiff > 0 ? '+' : ''}${setsDiff}</span>` : ''}
+                                </div>
+                            </div>
+                            <div class="comparison-stat">
+                                <div class="stat-label">Ortalama Ağırlık (kg)</div>
+                                <div class="stat-values">
+                                    <span class="previous">${previousWeek.avgWeight.toFixed(1)}</span>
+                                    <span class="arrow">→</span>
+                                    <span class="current">${lastWeek.avgWeight.toFixed(1)}</span>
+                                    ${weightDiff !== 0 ? `<span class="diff ${weightDiff > 0 ? 'positive' : 'negative'}">${weightDiff > 0 ? '+' : ''}${weightDiff.toFixed(1)}</span>` : ''}
+                                </div>
+                            </div>
+                            <div class="comparison-stat">
+                                <div class="stat-label">Toplam Hacim (set x kg)</div>
+                                <div class="stat-values">
+                                    <span class="previous">${previousWeek.totalVolume.toFixed(1)}</span>
+                                    <span class="arrow">→</span>
+                                    <span class="current">${lastWeek.totalVolume.toFixed(1)}</span>
+                                    ${totalVolumeDiff !== 0 ? `<span class="diff ${totalVolumeDiff > 0 ? 'positive' : 'negative'}">${totalVolumeDiff > 0 ? '+' : ''}${totalVolumeDiff.toFixed(1)}</span>` : ''}
+                                </div>
+                            </div>
+                        ` : ''}
+                        ${lastWeek.distance > 0 || previousWeek.distance > 0 ? `
+                            <div class="comparison-stat">
+                                <div class="stat-label">Toplam Mesafe (km)</div>
+                                <div class="stat-values">
+                                    <span class="previous">${previousWeek.distance.toFixed(1)}</span>
+                                    <span class="arrow">→</span>
+                                    <span class="current">${lastWeek.distance.toFixed(1)}</span>
+                                    ${distanceDiff !== 0 ? `<span class="diff ${distanceDiff > 0 ? 'positive' : 'negative'}">${distanceDiff > 0 ? '+' : ''}${distanceDiff.toFixed(1)}</span>` : ''}
+                                </div>
+                            </div>
+                        ` : ''}
+                        <div class="comparison-stat">
+                            <div class="stat-label">Yakılan Kalori</div>
+                            <div class="stat-values">
+                                <span class="previous">${previousWeek.calories}</span>
+                                <span class="arrow">→</span>
+                                <span class="current">${lastWeek.calories}</span>
+                                ${caloriesDiff !== 0 ? `<span class="diff ${caloriesDiff > 0 ? 'positive' : 'negative'}">${caloriesDiff > 0 ? '+' : ''}${caloriesDiff}</span>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        html += '</div>';
+        container.innerHTML = html;
+    }
+
+    groupByType(workouts) {
+        const grouped = {};
+        
+        workouts.forEach(workout => {
+            if (!grouped[workout.type]) {
+                grouped[workout.type] = {
+                    count: 0,
+                    duration: 0,
+                    distance: 0,
+                    calories: 0,
+                    sets: 0,
+                    totalWeight: 0,
+                    weightCount: 0
+                };
+            }
+            
+            const stats = grouped[workout.type];
+            stats.count++;
+            stats.duration += workout.duration || 0;
+            stats.distance += workout.distance || 0;
+            stats.calories += workout.calories || 0;
+            
+            if (workout.sets > 0 && workout.weight > 0) {
+                stats.sets += workout.sets || 0;
+                stats.totalWeight += workout.weight || 0;
+                stats.weightCount++;
+            }
+        });
+
+        // Ortalama ağırlık ve toplam hacim hesapla
+        Object.keys(grouped).forEach(type => {
+            const stats = grouped[type];
+            stats.avgWeight = stats.weightCount > 0 ? stats.totalWeight / stats.weightCount : 0;
+            stats.totalVolume = stats.sets * stats.avgWeight;
+        });
+
+        return grouped;
+    }
+
+    getEmptyStats() {
+        return {
+            count: 0,
+            duration: 0,
+            distance: 0,
+            calories: 0,
+            sets: 0,
+            avgWeight: 0,
+            totalVolume: 0
+        };
+    }
+
+    showSuccessMessage() {
+        const form = document.querySelector('.add-workout');
+        form.classList.add('success-animation');
+        setTimeout(() => form.classList.remove('success-animation'), 300);
+        
+        // Optional: Show a toast notification
+        const toast = document.createElement('div');
+        toast.textContent = '✅ Antrenman başarıyla eklendi!';
+        toast.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        `;
+        
+        document.body.appendChild(toast);
+        setTimeout(() => {
+            toast.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => toast.remove(), 300);
+        }, 2000);
+    }
+
+    // Local Storage
+    saveWorkouts() {
+        localStorage.setItem('workouts', JSON.stringify(this.workouts));
+    }
+
+    loadWorkouts() {
+        const data = localStorage.getItem('workouts');
+        return data ? JSON.parse(data) : [];
     }
 }
 
-@media (max-width: 768px) {
-    .nutrition-tabs {
-        flex-direction: column;
-        gap: 5px;
+// Toast animations
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        from {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
     }
-
-    .nutrition-tab {
-        width: 100%;
-        text-align: left;
-        margin-bottom: 0;
-        border-bottom: none;
-        border-left: 3px solid transparent;
+    
+    @keyframes slideOut {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(400px);
+            opacity: 0;
+        }
     }
+`;
+document.head.appendChild(style);
 
-    .nutrition-tab.active {
-        border-left-color: var(--primary-color);
-        border-bottom: none;
-    }
+// Uygulamayı başlat
+const tracker = new WorkoutTracker();
 
-    .food-grid {
-        grid-template-columns: 1fr;
-    }
 
-    .program-filters {
-        flex-direction: column;
-    }
-
-    .program-filter {
-        width: 100%;
-    }
-}
-
-/* Comparison Section */
-.comparison-section {
-    margin-bottom: 25px;
-}
-
-.comparison-subtitle {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    margin-bottom: 25px;
-    text-align: center;
-}
-
-.comparison-content {
-    margin-top: 20px;
-}
-
-.comparison-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 20px;
-}
-
-.comparison-card {
-    background: var(--bg-tertiary);
-    border-radius: 12px;
-    padding: 20px;
-    border: 2px solid var(--border-color);
-    transition: all 0.3s ease;
-}
-
-.comparison-card:hover {
-    border-color: var(--primary-color);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.2);
-}
-
-.comparison-header {
-    margin-bottom: 15px;
-    padding-bottom: 15px;
-    border-bottom: 2px solid var(--border-color);
-}
-
-.comparison-header h3 {
-    font-size: 1.2rem;
-    color: var(--text-primary);
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.comparison-stats {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.comparison-stat {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.comparison-stat .stat-label {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.comparison-stat .stat-values {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.comparison-stat .previous {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-}
-
-.comparison-stat .arrow {
-    color: var(--text-muted);
-    font-size: 1rem;
-}
-
-.comparison-stat .current {
-    color: var(--text-primary);
-    font-size: 1.1rem;
-    font-weight: 600;
-}
-
-.comparison-stat .diff {
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-size: 0.85rem;
-    font-weight: 700;
-}
-
-.comparison-stat .diff.positive {
-    background: rgba(16, 185, 129, 0.2);
-    color: var(--success-color);
-}
-
-.comparison-stat .diff.negative {
-    background: rgba(239, 68, 68, 0.2);
-    color: var(--danger-color);
-}
-
-/* Responsive Design for Comparison */
-@media (max-width: 768px) {
-    .comparison-grid {
-        grid-template-columns: 1fr;
-    }
-}
 
 
 
