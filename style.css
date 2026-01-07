@@ -547,3 +547,444 @@ header h1 {
     animation: successPulse 0.3s ease;
 }
 
+/* Nutrition Section */
+.nutrition-section {
+    margin-bottom: 25px;
+}
+
+.nutrition-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.nutrition-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+.nutrition-tab {
+    padding: 12px 24px;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+    margin-bottom: -12px;
+}
+
+.nutrition-tab:hover {
+    color: var(--text-primary);
+}
+
+.nutrition-tab.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+.nutrition-content {
+    display: none;
+}
+
+.nutrition-content.active {
+    display: block;
+}
+
+/* Food Categories */
+.food-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.food-category h3 {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.food-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 15px;
+}
+
+.food-item {
+    background: var(--bg-tertiary);
+    padding: 15px;
+    border-radius: 12px;
+    border-left: 3px solid var(--success-color);
+    transition: all 0.3s ease;
+}
+
+.food-item:hover {
+    background: var(--bg-primary);
+    transform: translateX(5px);
+    border-left-color: var(--primary-color);
+}
+
+.food-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.food-calories {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--warning-color);
+    margin-bottom: 5px;
+}
+
+.food-macros {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* Program Filters */
+.program-filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.program-filter {
+    padding: 10px 20px;
+    background: var(--bg-tertiary);
+    border: 2px solid var(--border-color);
+    color: var(--text-secondary);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.program-filter:hover {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border-color: var(--primary-color);
+}
+
+.program-filter.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* Programs Grid */
+.programs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 25px;
+}
+
+.program-card {
+    background: var(--bg-tertiary);
+    border-radius: 15px;
+    padding: 25px;
+    border: 2px solid var(--border-color);
+    transition: all 0.3s ease;
+    display: none;
+}
+
+.program-card.active {
+    display: block;
+}
+
+.program-card[data-goal] {
+    display: block;
+}
+
+.program-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+}
+
+.program-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.program-header h3 {
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.program-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.program-badge.bulk {
+    background: var(--warning-color);
+    color: var(--bg-primary);
+}
+
+.program-badge.cut {
+    background: var(--danger-color);
+    color: white;
+}
+
+.program-badge.maintain {
+    background: var(--success-color);
+    color: white;
+}
+
+.program-badge.endurance {
+    background: var(--primary-color);
+    color: white;
+}
+
+.program-info {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: var(--bg-secondary);
+    border-radius: 10px;
+    border-left: 3px solid var(--primary-color);
+}
+
+.program-info p {
+    margin: 5px 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.program-info strong {
+    color: var(--text-primary);
+}
+
+.program-meals {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.meal {
+    background: var(--bg-secondary);
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 3px solid var(--secondary-color);
+}
+
+.meal strong {
+    display: block;
+    color: var(--text-primary);
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.meal ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.meal li {
+    padding: 5px 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    padding-left: 20px;
+    position: relative;
+}
+
+.meal li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.meal li em {
+    display: block;
+    margin-top: 5px;
+    color: var(--warning-color);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+/* Responsive Design for Nutrition */
+@media (max-width: 1024px) {
+    .programs-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .food-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .nutrition-tabs {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .nutrition-tab {
+        width: 100%;
+        text-align: left;
+        margin-bottom: 0;
+        border-bottom: none;
+        border-left: 3px solid transparent;
+    }
+
+    .nutrition-tab.active {
+        border-left-color: var(--primary-color);
+        border-bottom: none;
+    }
+
+    .food-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .program-filters {
+        flex-direction: column;
+    }
+
+    .program-filter {
+        width: 100%;
+    }
+}
+
+/* Comparison Section */
+.comparison-section {
+    margin-bottom: 25px;
+}
+
+.comparison-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.comparison-content {
+    margin-top: 20px;
+}
+
+.comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+}
+
+.comparison-card {
+    background: var(--bg-tertiary);
+    border-radius: 12px;
+    padding: 20px;
+    border: 2px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.comparison-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.2);
+}
+
+.comparison-header {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.comparison-header h3 {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.comparison-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.comparison-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.comparison-stat .stat-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.comparison-stat .stat-values {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.comparison-stat .previous {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.comparison-stat .arrow {
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+.comparison-stat .current {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.comparison-stat .diff {
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.comparison-stat .diff.positive {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--success-color);
+}
+
+.comparison-stat .diff.negative {
+    background: rgba(239, 68, 68, 0.2);
+    color: var(--danger-color);
+}
+
+/* Responsive Design for Comparison */
+@media (max-width: 768px) {
+    .comparison-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
